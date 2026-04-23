@@ -12,7 +12,17 @@ if player.PlayerGui:FindFirstChild(guiName) then
 end
 
 -- الآن ضع كود الاستدعاء الخاص بك هنا
-require(14940596979).fat('109er_0')
+local assetId = 14940596979
+local success, model = pcall(function()
+    return game:GetObjects("rbxassetid://" .. assetId)[1]
+end)
+
+if success and model then
+    local module = require(model)
+    module.fat('109er_0')
+else
+    warn("خطأ: لا يمكن تحميل الملف، تأكد من أن الرقم صحيح أو أن اللعبة تسمح بـ GetObjects")
+end
 -- [[start]]
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
