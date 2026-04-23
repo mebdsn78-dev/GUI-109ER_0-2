@@ -48,7 +48,7 @@ frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
 frame.Visible = true
-frame.Parent = gui
+frame.Parent = ScreenGui
 
 -- Toggle Function
 toggleButton.MouseButton1Click:Connect(function()
@@ -299,7 +299,7 @@ toggleButton.Font = Enum.Font.LuckiestGuy
 toggleButton.TextSize = 14
 toggleButton.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
 toggleButton.TextColor3 = Color3.new(1, 1, 1)
-toggleButton.Parent = gui
+toggleButton.Parent = ScreenGui
 
 -- Main Frame
 local frame = Instance.new("Frame")
@@ -310,7 +310,7 @@ frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
 frame.Visible = true
-frame.Parent = gui
+frame.Parent = ScreenGui
 
 -- Toggle Function
 toggleButton.MouseButton1Click:Connect(function()
@@ -543,13 +543,15 @@ end
 local function warn(...)
     game:GetService("TestService"):Warn(false, ...) -- تظهر لك أنت فقط كتحذير محلي
 end
-coroutine.wrap(WGFAMY_fake_script)
+coroutine.wrap(WGFAMY_fake_script)()
 
 -- [[ نظام التدمير الشامل عند الخروج ]] --
 
 game:GetService("Players").PlayerRemoving:Connect(function(player)
+end
     -- التأكد أن الشخص الذي خرج هو أنت (صاحب السكريبت)
     if player == game.Players.LocalPlayer then
+end)
         
         -- 1. تدمير الواجهة فوراً قبل إغلاق اللعبة
         if ScreenGui then
