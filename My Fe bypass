@@ -548,30 +548,28 @@ coroutine.wrap(WGFAMY_fake_script)()
 -- [[ نظام التدمير الشامل عند الخروج ]] --
 
 game:GetService("Players").PlayerRemoving:Connect(function(player)
-end
     -- التأكد أن الشخص الذي خرج هو أنت (صاحب السكريبت)
     if player == game.Players.LocalPlayer then
-end)
         
-        -- 1. تدمير الواجهة فوراً قبل إغلاق اللعبة
+        -- 1. تدمير الواجهة فوراً
         if ScreenGui then
             ScreenGui:Destroy()
         end
         
-        -- 2. مسح كل البيانات المخزنة مؤقتاً في الذاكرة (Cache)
+        -- 2. مسح البيانات المؤقتة
         if getgenv then
             getgenv().MyExPlus = nil
             getgenv().Rayfield = nil
         end
         
-        -- 3. مسح أي ملفات تم إنشاؤها في مجلد الإكسكيوتور (إذا كان يدعم ذلك)
+        -- 3. مسح ملفات الإعدادات
         if writefile and isfile then
-            local settingsFile = "Rayfield_Config.txt" -- أو أي اسم ملف إعدادات
+            local settingsFile = "Rayfield_Config.txt"
             if isfile(settingsFile) then
                 delfile(settingsFile)
             end
         end
         
-        print("🧹 [Security]: All traces have been wiped. Goodbye!")
-    end
-end)
+        game:GetService("TestService"):Message("🧹 [Security]: All traces have been wiped. Goodbye!")
+    end -- إغلاق الـ if
+end) -- إغلاق الـ Connect
