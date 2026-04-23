@@ -533,43 +533,29 @@ coroutine.wrap(UDIRPT_fake_script)()
 
 -- Output welcome and game name
 local function WGFAMY_fake_script()
-	local script = Instance.new('LocalScript', StigmanFroud)
 	local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
-	-- تحويل الطباعة لتكون محلية فقط (Client-Side Only)
-local function print(...)
-    game:GetService("TestService"):Message(...) -- تظهر لك أنت فقط ولا تظهر في Server Log
-end
-
-local function warn(...)
-    game:GetService("TestService"):Warn(false, ...) -- تظهر لك أنت فقط كتحذير محلي
+	print("Loaded At", GetName.Name)
+	wait(0.1)
+	print("Welcome,", game.Players.LocalPlayer.Name)
 end
 coroutine.wrap(WGFAMY_fake_script)()
 
 -- [[ نظام التدمير الشامل عند الخروج ]] --
-
 game:GetService("Players").PlayerRemoving:Connect(function(player)
-    -- التأكد أن الشخص الذي خرج هو أنت (صاحب السكريبت)
-    if player == game.Players.LocalPlayer then
-        
-        -- 1. تدمير الواجهة فوراً
-        if ScreenGui then
-            ScreenGui:Destroy()
-        end
-        
-        -- 2. مسح البيانات المؤقتة
-        if getgenv then
-            getgenv().MyExPlus = nil
-            getgenv().Rayfield = nil
-        end
-        
-        -- 3. مسح ملفات الإعدادات
-        if writefile and isfile then
-            local settingsFile = "Rayfield_Config.txt"
-            if isfile(settingsFile) then
-                delfile(settingsFile)
-            end
-        end
-        
-        game:GetService("TestService"):Message("🧹 [Security]: All traces have been wiped. Goodbye!")
-    end -- إغلاق الـ if
-end) -- إغلاق الـ Connect
+	if player == game.Players.LocalPlayer then
+		if ScreenGui then
+			ScreenGui:Destroy()
+		end
+		if getgenv then
+			getgenv().MyExPlus = nil
+			getgenv().Rayfield = nil
+		end
+		if writefile and isfile then
+			local settingsFile = "Rayfield_Config.txt"
+			if isfile(settingsFile) then
+				delfile(settingsFile)
+			end
+		end
+		print("🧹 [Security]: All traces have been wiped. Goodbye!")
+	end
+end)
