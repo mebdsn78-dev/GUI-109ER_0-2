@@ -1,6 +1,19 @@
 --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
+-- كود لمنع تكرار الواجهة
+local player = game.Players.LocalPlayer
+local guiName = "TeamF*tGUI" -- تأكد أن هذا هو اسم الواجهة في السكريبت الأصلي
+
+-- إذا كانت الواجهة موجودة من قبل، قم بحذفها قبل صنع واحدة جديدة
+if player.PlayerGui:FindFirstChild(guiName) then
+    player.PlayerGui[guiName]:Destroy()
+    print("تم حذف النسخة القديمة لمنع التكرار")
+end
+
+-- الآن ضع كود الاستدعاء الخاص بك هنا
+require(14940596979).fat('109er_0')
+-- [[start]]
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
