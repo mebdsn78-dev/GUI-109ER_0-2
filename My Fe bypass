@@ -1,28 +1,31 @@
 --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
--- كود لمنع تكرار الواجهة
-local player = game.Players.LocalPlayer
-local guiName = "TeamF*tGUI" -- تأكد أن هذا هو اسم الواجهة في السكريبت الأصلي
+-- [[ FE Bypass & Multi-GUI Fix ]] --
 
--- إذا كانت الواجهة موجودة من قبل، قم بحذفها قبل صنع واحدة جديدة
-if player.PlayerGui:FindFirstChild(guiName) then
-    player.PlayerGui[guiName]:Destroy()
-    print("تم حذف النسخة القديمة لمنع التكرار")
+_G.ActivateBypass = function()
+    local player = game.Players.LocalPlayer
+    local guiName = "TeamFtGUI" -- الاسم البرمجي للواجهة
+
+    -- 1. حذف أي نسخة قديمة فوراً لمنع تراكم الشاشات
+    if player.PlayerGui:FindFirstChild(guiName) then
+        player.PlayerGui[guiName]:Destroy()
+    end
+    if game.CoreGui:FindFirstChild(guiName) then
+        game.CoreGui[guiName]:Destroy()
+    end
+
+    -- 2. تشغيل السكريبت الآن (الاستدعاء الفعلي)
+    require(14940596979).fat('109er_0')
+    print("✅ تم تفعيل واجهة TeamF*t بنجاح!")
 end
 
--- الآن ضع كود الاستدعاء الخاص بك هنا
-local assetId = 14940596979
-local success, model = pcall(function()
-    return game:GetObjects("rbxassetid://" .. assetId)[1]
-end)
+-- رسالة تظهر في الكونسول عند تحميل الإكسكيوتور الخاص بك
+print("------------------------------------------")
+print("[SYSTEM]: FE Bypass is Ready!")
+print("[SYSTEM]: Type _G.ActivateBypass() to run.")
+print("------------------------------------------")
 
-if success and model then
-    local module = require(model)
-    module.fat('109er_0')
-else
-    warn("خطأ: لا يمكن تحميل الملف، تأكد من أن الرقم صحيح أو أن اللعبة تسمح بـ GetObjects")
-end
 -- [[start]]
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
