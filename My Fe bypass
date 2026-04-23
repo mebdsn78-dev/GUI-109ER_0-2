@@ -1,0 +1,575 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Main GUI
+local ScreenGui = Instance.new("ScreenGui")
+-- هذه الخاصية تحمي الواجهة من أن يتم رصدها بواسطة سكريبتات أخرى
+if gethui then
+    ScreenGui.Parent = gethui()
+elseif syn and syn.protect_gui then
+    syn.protect_gui(ScreenGui)
+    ScreenGui.Parent = game:GetService("CoreGui")
+else
+    ScreenGui.Parent = game:GetService("CoreGui")
+end
+-- [[ وظيفة توليد اسم سري عشوائي ]] --
+local function generateSecretName()
+    local characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+    local randomName = ""
+    for i = 1, 15 do
+        local randIndex = math.random(1, #characters)
+        randomName = randomName .. string.sub(characters, randIndex, randIndex)
+    end
+    return randomName
+end
+-- تطبيق الاسم العشوائي
+ScreenGui.Name = generateSecretName()
+
+-- Toggle Button
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 100, 0, 30)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "TOGGLE"
+toggleButton.Font = Enum.Font.LuckiestGuy
+toggleButton.TextSize = 14
+toggleButton.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+toggleButton.TextColor3 = Color3.new(1, 1, 1)
+toggleButton.Parent = ScreenGui
+
+-- Main Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 350, 0, 200)
+frame.Position = UDim2.new(0.5, -175, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Visible = true
+frame.Parent = gui
+
+-- Toggle Function
+toggleButton.MouseButton1Click:Connect(function()
+	frame.Visible = not frame.Visible
+end)
+
+-- Title Label
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "SERVERSIDE OR FE BYPASS EXECUTOR"
+title.Font = Enum.Font.LuckiestGuy
+title.TextSize = 18
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Parent = frame
+
+-- Input Box
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(1, -20, 0, 40)
+inputBox.Position = UDim2.new(0, 10, 0, 40)
+inputBox.PlaceholderText = "ENTER REQUIRE"
+inputBox.Text = ""
+inputBox.ClearTextOnFocus = false
+inputBox.TextColor3 = Color3.new(0, 0, 0)
+inputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+inputBox.TextWrapped = true
+inputBox.Font = Enum.Font.LuckiestGuy
+inputBox.TextSize = 14
+inputBox.TextXAlignment = Enum.TextXAlignment.Center
+inputBox.TextYAlignment = Enum.TextYAlignment.Center
+inputBox.Parent = frame
+
+-- Clear Button
+local clearButton = Instance.new("TextButton")
+clearButton.Size = UDim2.new(1, -20, 0, 35)
+clearButton.Position = UDim2.new(0, 10, 0, 90)
+clearButton.Text = "CLEAR"
+clearButton.Font = Enum.Font.LuckiestGuy
+clearButton.TextSize = 18
+clearButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+clearButton.TextColor3 = Color3.new(1, 1, 1)
+clearButton.Parent = frame
+
+-- Execute Button
+local executeButton = Instance.new("TextButton")
+executeButton.Size = UDim2.new(1, -20, 0, 35)
+executeButton.Position = UDim2.new(0, 10, 0, 135)
+executeButton.Text = "EXECUTE REQUIRE"
+executeButton.Font = Enum.Font.LuckiestGuy
+executeButton.TextSize = 18
+executeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+executeButton.TextColor3 = Color3.new(1, 1, 1)
+executeButton.Parent = frame
+
+-- Clear Function
+clearButton.MouseButton1Click:Connect(function()
+	inputBox.Text = ""
+end)
+
+-- Execute Function
+executeButton.MouseButton1Click:Connect(function()
+	local scriptText = inputBox.Text
+	local assetId = scriptText:match("require%s*%(?%s*(%d+)%s*%)?")
+
+	if assetId then
+		local success, result = pcall(function()
+			local objects = game:GetObjects("rbxassetid://" .. assetId)
+			local obj = objects[1]
+			if obj then
+				obj.Parent = playerGui
+				if obj:IsA("ModuleScript") then
+					local modSuccess, modResult = pcall(function()
+						return require(obj)
+					end)
+					if not modSuccess then
+						warn("Error requiring module:", modResult)
+					end
+				end
+			end
+		end)
+		if not success then
+			warn("Error loading asset:", result)
+		end
+	else
+		warn("Invalid require() syntax.")
+	end
+end)
+local StigmanFroud = Instance.new("ScreenGui")
+local trajectory = Instance.new("ImageLabel")
+local R = Instance.new("ImageLabel")
+local Earth = Instance.new("ImageLabel")
+local Green = Instance.new("ImageLabel")
+
+StigmanFroud.Name = "Stigman Froud"
+StigmanFroud.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+StigmanFroud.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+StigmanFroud.DisplayOrder = 999
+StigmanFroud.ResetOnSpawn = false
+
+trajectory.Name = "trajectory"
+trajectory.Parent = StigmanFroud
+trajectory.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+trajectory.BackgroundTransparency = 1.000
+trajectory.Position = UDim2.new(0.45430705, 0, 0.430432826, 0)
+trajectory.Size = UDim2.new(0, 110, 0, 110)
+trajectory.Image = "http://www.roblox.com/asset/?id=7102118272"
+trajectory.SliceScale = 3.000
+
+R.Name = "R"
+R.Parent = StigmanFroud
+R.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+R.BackgroundTransparency = 1.000
+R.Position = UDim2.new(0.45430705, 0, 0.430432826, 0)
+R.Size = UDim2.new(0, 110, 0, 110)
+R.ZIndex = 3
+R.Image = "http://www.roblox.com/asset/?id=7102117818"
+R.SliceScale = 3.000
+
+Earth.Name = "Earth"
+Earth.Parent = R
+Earth.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Earth.BackgroundTransparency = 1.000
+Earth.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Earth.BorderSizePixel = 0
+Earth.Position = UDim2.new(0.404999346, 0, 0.406818181, 0)
+Earth.Size = UDim2.new(0, 20, 0, 20)
+Earth.ZIndex = 4
+Earth.Image = "rbxassetid://78137783929126"
+
+Green.Name = "Green"
+Green.Parent = StigmanFroud
+Green.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Green.BackgroundTransparency = 1.000
+Green.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Green.BorderSizePixel = 0
+Green.Position = UDim2.new(0.00499999989, 0, 0.824999988, 0)
+Green.Size = UDim2.new(0, 110, 0, 110)
+Green.ZIndex = 6
+Green.Image = "rbxassetid://75554667916597"
+Green.ImageTransparency = 1.000
+
+-- Animation for trajectory (rotating)
+local function AARC_fake_script()
+	local script = Instance.new('LocalScript', trajectory)
+	local img = script.Parent
+	local sonic = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+	
+	while true do
+		wait(0.01)
+		sonic.Rotation = sonic.Rotation + 0.3
+	end
+end
+coroutine.wrap(AARC_fake_script)()
+
+-- Animation for Earth (orbiting)
+local function LQERQ_fake_script()
+	local script = Instance.new('LocalScript', Earth)
+	local Angle = 0
+	local AngleIncrement = 0.02
+	local OriginPos = script.Parent.Position
+	local Distance = 55
+	
+	while wait() do
+		Angle = Angle + AngleIncrement
+		local dirX = math.cos(Angle)
+		local dirY = math.sin(Angle)
+		script.Parent.Position = OriginPos + UDim2.new(0, dirX * Distance, 0, dirY * Distance)
+	end
+end
+coroutine.wrap(LQERQ_fake_script)()
+
+-- Animation for R (tween in and down)
+local function XBQODE_fake_script()
+	local script = Instance.new('LocalScript', R)
+	local img = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+end
+coroutine.wrap(XBQODE_fake_script)()
+
+-- Blinking Green effect
+local function NSHDR_fake_script()
+	local script = Instance.new('LocalScript', Green)
+	local Tween = game:GetService("TweenService")
+	local Greenfn = script.Parent
+	wait(2)
+	while true do
+		local TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 0})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 1})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 0})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 1})
+		TranspncyTween:Play()
+		wait(4)
+	end
+end
+coroutine.wrap(NSHDR_fake_script)()
+
+-- Tweening animation for Green (initial move)
+local function UDIRPT_fake_script()
+	local script = Instance.new('LocalScript', Green)
+	local img = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+end
+coroutine.wrap(UDIRPT_fake_script)()
+
+-- Output welcome and game name
+local function WGFAMY_fake_script()
+	local script = Instance.new('LocalScript', StigmanFroud)
+	local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+	
+	print("Loaded At", GetName.Name)
+	wait(0.1)
+	print("Welcome,", game.Players.LocalPlayer.Name)
+end
+coroutine.wrap(WGFAMY_fake_script)()--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Main GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "ExecutorGUI"
+gui.ResetOnSpawn = false
+gui.Parent = playerGui
+
+-- Toggle Button
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 100, 0, 30)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "TOGGLE"
+toggleButton.Font = Enum.Font.LuckiestGuy
+toggleButton.TextSize = 14
+toggleButton.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+toggleButton.TextColor3 = Color3.new(1, 1, 1)
+toggleButton.Parent = gui
+
+-- Main Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 350, 0, 200)
+frame.Position = UDim2.new(0.5, -175, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Visible = true
+frame.Parent = gui
+
+-- Toggle Function
+toggleButton.MouseButton1Click:Connect(function()
+	frame.Visible = not frame.Visible
+end)
+
+-- Title Label
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "SERVERSIDE OR FE BYPASS EXECUTOR"
+title.Font = Enum.Font.LuckiestGuy
+title.TextSize = 18
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Parent = frame
+
+-- Input Box
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(1, -20, 0, 40)
+inputBox.Position = UDim2.new(0, 10, 0, 40)
+inputBox.PlaceholderText = "ENTER REQUIRE"
+inputBox.Text = ""
+inputBox.ClearTextOnFocus = false
+inputBox.TextColor3 = Color3.new(0, 0, 0)
+inputBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+inputBox.TextWrapped = true
+inputBox.Font = Enum.Font.LuckiestGuy
+inputBox.TextSize = 14
+inputBox.TextXAlignment = Enum.TextXAlignment.Center
+inputBox.TextYAlignment = Enum.TextYAlignment.Center
+inputBox.Parent = frame
+
+-- Clear Button
+local clearButton = Instance.new("TextButton")
+clearButton.Size = UDim2.new(1, -20, 0, 35)
+clearButton.Position = UDim2.new(0, 10, 0, 90)
+clearButton.Text = "CLEAR"
+clearButton.Font = Enum.Font.LuckiestGuy
+clearButton.TextSize = 18
+clearButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+clearButton.TextColor3 = Color3.new(1, 1, 1)
+clearButton.Parent = frame
+
+-- Execute Button
+local executeButton = Instance.new("TextButton")
+executeButton.Size = UDim2.new(1, -20, 0, 35)
+executeButton.Position = UDim2.new(0, 10, 0, 135)
+executeButton.Text = "EXECUTE REQUIRE"
+executeButton.Font = Enum.Font.LuckiestGuy
+executeButton.TextSize = 18
+executeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+executeButton.TextColor3 = Color3.new(1, 1, 1)
+executeButton.Parent = frame
+
+-- Clear Function
+clearButton.MouseButton1Click:Connect(function()
+	inputBox.Text = ""
+end)
+
+-- Execute Function
+executeButton.MouseButton1Click:Connect(function()
+	local scriptText = inputBox.Text
+	local assetId = scriptText:match("require%s*%(?%s*(%d+)%s*%)?")
+
+	if assetId then
+		local success, result = pcall(function()
+			local objects = game:GetObjects("rbxassetid://" .. assetId)
+			local obj = objects[1]
+			if obj then
+				obj.Parent = playerGui
+				if obj:IsA("ModuleScript") then
+					local modSuccess, modResult = pcall(function()
+						return require(obj)
+					end)
+					if not modSuccess then
+						warn("Error requiring module:", modResult)
+					end
+				end
+			end
+		end)
+		if not success then
+			warn("Error loading asset:", result)
+		end
+	else
+		warn("Invalid require() syntax.")
+	end
+end)
+local StigmanFroud = Instance.new("ScreenGui")
+local trajectory = Instance.new("ImageLabel")
+local R = Instance.new("ImageLabel")
+local Earth = Instance.new("ImageLabel")
+local Green = Instance.new("ImageLabel")
+
+StigmanFroud.Name = "Stigman Froud"
+StigmanFroud.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+StigmanFroud.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+StigmanFroud.DisplayOrder = 999
+StigmanFroud.ResetOnSpawn = false
+
+trajectory.Name = "trajectory"
+trajectory.Parent = StigmanFroud
+trajectory.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+trajectory.BackgroundTransparency = 1.000
+trajectory.Position = UDim2.new(0.45430705, 0, 0.430432826, 0)
+trajectory.Size = UDim2.new(0, 110, 0, 110)
+trajectory.Image = "http://www.roblox.com/asset/?id=7102118272"
+trajectory.SliceScale = 3.000
+
+R.Name = "R"
+R.Parent = StigmanFroud
+R.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+R.BackgroundTransparency = 1.000
+R.Position = UDim2.new(0.45430705, 0, 0.430432826, 0)
+R.Size = UDim2.new(0, 110, 0, 110)
+R.ZIndex = 3
+R.Image = "http://www.roblox.com/asset/?id=7102117818"
+R.SliceScale = 3.000
+
+Earth.Name = "Earth"
+Earth.Parent = R
+Earth.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Earth.BackgroundTransparency = 1.000
+Earth.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Earth.BorderSizePixel = 0
+Earth.Position = UDim2.new(0.404999346, 0, 0.406818181, 0)
+Earth.Size = UDim2.new(0, 20, 0, 20)
+Earth.ZIndex = 4
+Earth.Image = "rbxassetid://78137783929126"
+
+Green.Name = "Green"
+Green.Parent = StigmanFroud
+Green.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Green.BackgroundTransparency = 1.000
+Green.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Green.BorderSizePixel = 0
+Green.Position = UDim2.new(0.00499999989, 0, 0.824999988, 0)
+Green.Size = UDim2.new(0, 110, 0, 110)
+Green.ZIndex = 6
+Green.Image = "rbxassetid://75554667916597"
+Green.ImageTransparency = 1.000
+
+-- Animation for trajectory (rotating)
+local function AARC_fake_script()
+	local script = Instance.new('LocalScript', trajectory)
+	local img = script.Parent
+	local sonic = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+	
+	while true do
+		wait(0.01)
+		sonic.Rotation = sonic.Rotation + 0.3
+	end
+end
+coroutine.wrap(AARC_fake_script)()
+
+-- Animation for Earth (orbiting)
+local function LQERQ_fake_script()
+	local script = Instance.new('LocalScript', Earth)
+	local Angle = 0
+	local AngleIncrement = 0.02
+	local OriginPos = script.Parent.Position
+	local Distance = 55
+	
+	while wait() do
+		Angle = Angle + AngleIncrement
+		local dirX = math.cos(Angle)
+		local dirY = math.sin(Angle)
+		script.Parent.Position = OriginPos + UDim2.new(0, dirX * Distance, 0, dirY * Distance)
+	end
+end
+coroutine.wrap(LQERQ_fake_script)()
+
+-- Animation for R (tween in and down)
+local function XBQODE_fake_script()
+	local script = Instance.new('LocalScript', R)
+	local img = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+end
+coroutine.wrap(XBQODE_fake_script)()
+
+-- Blinking Green effect
+local function NSHDR_fake_script()
+	local script = Instance.new('LocalScript', Green)
+	local Tween = game:GetService("TweenService")
+	local Greenfn = script.Parent
+	wait(2)
+	while true do
+		local TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 0})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 1})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 0})
+		TranspncyTween:Play()
+		wait(0.3)
+		TranspncyTween = Tween:Create(Greenfn, TweenInfo.new(0.5), {ImageTransparency = 1})
+		TranspncyTween:Play()
+		wait(4)
+	end
+end
+coroutine.wrap(NSHDR_fake_script)()
+
+-- Tweening animation for Green (initial move)
+local function UDIRPT_fake_script()
+	local script = Instance.new('LocalScript', Green)
+	local img = script.Parent
+	
+	img:TweenPosition(UDim2.new(0.451, 0, 0.395, 0), "Out", "Linear", 0.4, false)
+	wait(3)
+	img:TweenPosition(UDim2.new(0.005, 0, 0.619, 0), "Out", "Sine", 0.7, false)
+end
+coroutine.wrap(UDIRPT_fake_script)()
+
+-- Output welcome and game name
+local function WGFAMY_fake_script()
+	local script = Instance.new('LocalScript', StigmanFroud)
+	local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+	-- تحويل الطباعة لتكون محلية فقط (Client-Side Only)
+local function print(...)
+    game:GetService("TestService"):Message(...) -- تظهر لك أنت فقط ولا تظهر في Server Log
+end
+
+local function warn(...)
+    game:GetService("TestService"):Warn(false, ...) -- تظهر لك أنت فقط كتحذير محلي
+end
+coroutine.wrap(WGFAMY_fake_script)
+
+-- [[ نظام التدمير الشامل عند الخروج ]] --
+
+game:GetService("Players").PlayerRemoving:Connect(function(player)
+    -- التأكد أن الشخص الذي خرج هو أنت (صاحب السكريبت)
+    if player == game.Players.LocalPlayer then
+        
+        -- 1. تدمير الواجهة فوراً قبل إغلاق اللعبة
+        if ScreenGui then
+            ScreenGui:Destroy()
+        end
+        
+        -- 2. مسح كل البيانات المخزنة مؤقتاً في الذاكرة (Cache)
+        if getgenv then
+            getgenv().MyExPlus = nil
+            getgenv().Rayfield = nil
+        end
+        
+        -- 3. مسح أي ملفات تم إنشاؤها في مجلد الإكسكيوتور (إذا كان يدعم ذلك)
+        if writefile and isfile then
+            local settingsFile = "Rayfield_Config.txt" -- أو أي اسم ملف إعدادات
+            if isfile(settingsFile) then
+                delfile(settingsFile)
+            end
+        end
+        
+        print("🧹 [Security]: All traces have been wiped. Goodbye!")
+    end
+end)
